@@ -47,3 +47,20 @@ $gatekeeper = new Gatekeeper('option_name', $period);
 **Why not use WordPress cron?**
 
 WordPress ships with built-in support for cron tasks, but it's a cumbersome API that requires the manual scheduling and unscheduling of tasks. Gatekeeper is designed to be a lightweight version that you can easily add, remove, and modify as needed. There's no need to add separate code for scheduling an unscheduling tasks. 
+
+## Number
+
+### Abbreviate
+
+Abbreviate large numbers converting numbers such as `23000` into `23K`.
+
+
+```php
+<?php
+
+use Proper\Number;
+
+Number::abbreviate(1260000); // 1.3M
+
+Number::abbreviate(133800); // 133.8K
+```
