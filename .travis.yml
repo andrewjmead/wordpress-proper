@@ -31,26 +31,15 @@ matrix:
       env: WP_VERSION=latest
 
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - |
-    if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
-      phpenv config-rm xdebug.ini
-    else
-      echo "xdebug.ini does not exist"
-    fi
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
-      composer global require "phpunit/phpunit:9.6.8"
-      composer global require "yoast/phpunit-polyfills"
-      export WP_TESTS_PHPUNIT_POLYFILLS_PATH="/home/travis/.config/composer/vendor/yoast/phpunit-polyfills"
-      composer install
-      composer dump-autoload
+      composer update
     fi
 
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit --configuration ./phpunit.xml.dist
-      WP_MULTISITE=1 phpunit --configuration ./phpunit.xml.dist
+      ./vendor/bin/phpunit --configuration ./phpunit.xml.dist
+      WP_MULTISITE=1 ./vendor/bin/phpunit --configuration ./phpunit.xml.dist
     fi

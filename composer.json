@@ -19,8 +19,8 @@
         }
     ],
     "require-dev": {
-        "php": ">=7.3.29",
-        "phpunit/phpunit": "9",
+        "php": ">=7.3.27",
+        "phpunit/phpunit": "9.6.8",
         "yoast/phpunit-polyfills": "^1.0",
         "phpstan/phpstan": "^1.10",
         "szepeviktor/phpstan-wordpress": "^1.1",
