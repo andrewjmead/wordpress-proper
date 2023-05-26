@@ -4,6 +4,8 @@
 
 A set of classes you may find useful for WordPress development.
 
+Zero dependencies.
+
 ## Gatekeeper
 
 Gatekeeper lets you run some code at a specific interval. It's perfect for situations where you have something you want to do, but you only want to do it every so often, such as once every 10 minutes or once every 12 hours.
