@@ -1,11 +1,11 @@
 <?php
 
-use Proper\Number;
+namespace Proper;
 
 /**
  * Tests for Number
  */
-class NumberTest extends WP_UnitTestCase {
+class NumberTest extends \WP_UnitTestCase {
 
     public function test_small_numbers() {
         $actual   = Number::abbreviate( 1 );

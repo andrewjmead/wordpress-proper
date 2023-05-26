@@ -1,11 +1,11 @@
 <?php
 
-use Proper\Gatekeeper;
+namespace Proper;
 
 /**
  * Tests for Gatekeeper
  */
-class GatekeeperTest extends WP_UnitTestCase {
+class GatekeeperTest extends \WP_UnitTestCase {
 
     /**
      * A new gate should be open
@@ -20,7 +20,7 @@ class GatekeeperTest extends WP_UnitTestCase {
      * Gate should accept DateInterval
      */
     public function test_accepts_date_interval() {
-        $interval   = new DateInterval( 'PT5S' );
+        $interval   = new \DateInterval( 'PT5S' );
         $gatekeeper = new Gatekeeper( 'option_name', $interval );
 
         $this->assertTrue( $gatekeeper->should_run() );
@@ -52,8 +52,8 @@ class GatekeeperTest extends WP_UnitTestCase {
      */
     public function test_gate_closed_if_interval_not_passed() {
         $gatekeeper    = new Gatekeeper( 'option_name', 'PT5S' );
-        $now           = new DateTime();
-        $three_seconds = new DateInterval( 'PT3S' );
+        $now           = new \DateTime();
+        $three_seconds = new \DateInterval( 'PT3S' );
 
         $now = $now->sub( $three_seconds );
         update_option( 'option_name', $now->format( 'c' ) );

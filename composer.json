@@ -6,7 +6,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Proper\\": "source/"
+            "Proper\\": ["source/", "tests/"]
         }
     },
     "scripts": {
