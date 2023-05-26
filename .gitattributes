@@ -1,0 +1,6 @@
+/bin                  export-ignore
+/tests                export-ignore
+/.*                   export-ignore
+/phpstan.neon         export-ignore
+/phpunit.xml.dist     export-ignore
+/wordpress-proper.php export-ignore
