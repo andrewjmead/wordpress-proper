@@ -4,20 +4,20 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $finder = Finder::create()
-                ->in([
+                ->in( [
                     __DIR__ . "/source"
-                ])
-                ->exclude([
+                ] )
+                ->exclude( [
                     "vendor"
-                ])
-                ->name('*.php')
-                ->ignoreDotFiles(true)
-                ->ignoreVCS(true);
+                ] )
+                ->name( '*.php' )
+                ->ignoreDotFiles( true )
+                ->ignoreVCS( true );
 
 $config = new Config();
 
-return $config->setRules([
-    '@PSR12' => true,
+return $config->setRules( [
+    '@PSR12'            => true,
     'no_unused_imports' => true
 
     // Add additional rules alongside the preset
@@ -26,4 +26,4 @@ return $config->setRules([
 
     // Remove rules defined in preset
     // 'full_opening_tag' => false,
-])->setFinder($finder);
+] )->setFinder( $finder );

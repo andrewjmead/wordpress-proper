@@ -22,8 +22,7 @@ use Exception;
  * }
  *
  */
-class Gatekeeper
-{
+class Gatekeeper {
     private $option_name;
     private $interval;
 
@@ -33,30 +32,28 @@ class Gatekeeper
      *
      * @throws Exception An exception is thrown if $interval is a string but isn't a valid period
      */
-    public function __construct(string $option_name, $interval)
-    {
+    public function __construct( string $option_name, $interval ) {
         $this->option_name = $option_name;
         $this->interval    = $interval;
 
-        if (is_string($interval)) {
-            $this->interval = new DateInterval($interval);
+        if ( is_string( $interval ) ) {
+            $this->interval = new DateInterval( $interval );
         }
     }
 
     /**
      * @return bool True if it's time for the task to run.
      */
-    public function should_run(): bool
-    {
+    public function should_run(): bool {
         $last_execution = $this->get_last_execution();
 
-        if (is_null($last_execution)) {
+        if ( is_null( $last_execution ) ) {
             return true;
         }
 
-        $is_past_interval_time = $last_execution->add($this->interval) < new DateTime();
+        $is_past_interval_time = $last_execution->add( $this->interval ) < new DateTime();
 
-        if ($is_past_interval_time) {
+        if ( $is_past_interval_time ) {
             return true;
         }
 
@@ -68,23 +65,21 @@ class Gatekeeper
      *
      * @return void
      */
-    public function complete(): void
-    {
+    public function complete(): void {
         $now = new DateTime();
-        update_option($this->option_name, $now->format('c'));
+        update_option( $this->option_name, $now->format( 'c' ) );
     }
 
-    private function get_last_execution(): ?DateTime
-    {
-        $option_value = get_option($this->option_name, false);
+    private function get_last_execution(): ?DateTime {
+        $option_value = get_option( $this->option_name, false );
 
-        if (! $option_value) {
+        if ( ! $option_value ) {
             return null;
         }
 
         try {
-            return new DateTime($option_value);
-        } catch (\Throwable $e) {
+            return new DateTime( $option_value );
+        } catch ( \Throwable $e ) {
             return null;
         }
     }
