@@ -9,6 +9,9 @@
             "Proper\\": "source/"
         }
     },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan --memory-limit=4G --configuration=phpstan.neon"
+    },
     "authors": [
         {
             "name": "Andrew Mead",
@@ -16,7 +19,13 @@
         }
     ],
     "require-dev": {
+        "php": ">=7.3.29",
         "phpunit/phpunit": "9",
-        "yoast/phpunit-polyfills": "^1.0"
+        "yoast/phpunit-polyfills": "^1.0",
+        "phpstan/phpstan": "^1.10",
+        "szepeviktor/phpstan-wordpress": "^1.1",
+        "friendsofphp/php-cs-fixer": "^3.4.0",
+        "php-stubs/woocommerce-stubs": "^7.5",
+        "sniccowp/php-scoper-wordpress-excludes": "^6.1"
     }
 }
