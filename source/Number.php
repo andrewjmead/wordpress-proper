@@ -32,5 +32,8 @@ class Number {
                 return $result;
             }
         }
+
+        // Do nothing for numbers past the trillions
+        return (string) $number;
     }
 }

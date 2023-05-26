@@ -55,4 +55,11 @@ class NumberTest extends \WP_UnitTestCase {
 
         $this->assertEquals( $expected, $actual );
     }
+
+    public function test_do_nothing_past_trillions() {
+        $actual   = Number::abbreviate(1000000000000000);
+        $expected = '1000000000000000';
+
+        $this->assertEquals( $expected, $actual );
+    }
 }
