@@ -38,8 +38,12 @@ before_script:
     fi
 
 script:
+  - - |
+      if [[ ! -z "$WP_VERSION" ]] ; then
+        composer phpstan
+      fi
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      ./vendor/bin/phpunit --configuration ./phpunit.xml.dist
-      WP_MULTISITE=1 ./vendor/bin/phpunit --configuration ./phpunit.xml.dist
+      composer phpunit
+      WP_MULTISITE=1 composer phpunit
     fi

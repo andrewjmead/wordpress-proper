@@ -10,7 +10,8 @@
         }
     },
     "scripts": {
-        "phpstan": "vendor/bin/phpstan --memory-limit=4G --configuration=phpstan.neon"
+        "phpstan": "vendor/bin/phpstan --memory-limit=4G --configuration=phpstan.neon",
+        "phpunit": "vendor/bin/phpunit"
     },
     "authors": [
         {
