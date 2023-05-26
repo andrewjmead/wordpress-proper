@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/andrewjmead/wordpress-proper.svg?branch=main)](https://app.travis-ci.com/andrewjmead/wordpress-proper)
+
 # WordPress Proper
 
 A set of classes you may find useful for WordPress development.
