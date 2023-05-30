@@ -69,7 +69,7 @@ Numbers below one thousand are not abbreviated. That means `Number::abbreviate(9
 
 Numbers at or above one quadrillion are not abbreviated. That means `Number::abbreviate(1000000000000000)` would return the string `1,000,000,000,000,000`.
 
-Behind the scenes, `abbreviate` uses `number_format_i18n` from WordPress to internationalize abbreviates. This ensures that `Number::abbreviate(1500)` returns the string `1.5K` for `en_US` and `1,5K` for `de_DE`.
+Behind the scenes, `abbreviate` uses `number_format_i18n` from WordPress to internationalize abbreviations. This ensures that `Number::abbreviate(1500)` returns the string `1.5K` for `en_US` and `1,5K` for `de_DE`.
 
 ```php
 <?php
