@@ -56,8 +56,20 @@ WordPress ships with built-in support for cron tasks, but it's a cumbersome API 
 
 ### Abbreviate
 
-Abbreviate large numbers converting numbers such as `23000` into `23K`.
+The `abbreviate` methods abbreviates large numbers such as `742898` into shorter strings such as `743K`.
 
+It provides abbreviations for:
+
+1. Thousands - `Number::abbreviate(133300)` returns the string `133.3K`
+2. Millions - `Number::abbreviate( 1300000 )` returns the string `1.3M`
+3. Billions - `Number::abbreviate( 999000000000 )` returns the string `999B`
+4. Trillions - `Number::abbreviate( 1000000000000 )` returns the string `1T`
+
+Numbers below one thousand are not abbreviated. That means `Number::abbreviate(978)` would return the string `978`.
+
+Numbers at or above one quadrillion are not abbreviated. That means `Number::abbreviate(1000000000000000)` would return the string `1,000,000,000,000,000`.
+
+Behind the scenes, `abbreviate` uses `number_format_i18n` from WordPress to internationalize abbreviates. This ensures that `Number::abbreviate(1500)` returns the string `1.5K` for `en_US` and `1,5K` for `de_DE`.
 
 ```php
 <?php
