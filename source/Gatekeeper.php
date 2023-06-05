@@ -5,6 +5,7 @@ namespace Proper;
 use DateInterval;
 use DateTime;
 use Exception;
+use Throwable;
 
 /**
  * Gatekeeper
@@ -60,16 +61,6 @@ class Gatekeeper {
         return false;
     }
 
-    /**
-     * Mark task as complete
-     *
-     * @return void
-     */
-    public function complete(): void {
-        $now = new DateTime();
-        update_option( $this->option_name, $now->format( 'c' ) );
-    }
-
     private function get_last_execution(): ?DateTime {
         $option_value = get_option( $this->option_name, false );
 
@@ -79,8 +70,18 @@ class Gatekeeper {
 
         try {
             return new DateTime( $option_value );
-        } catch ( \Throwable $e ) {
+        } catch ( Throwable $e ) {
             return null;
         }
+    }
+
+    /**
+     * Mark task as complete
+     *
+     * @return void
+     */
+    public function complete(): void {
+        $now = new DateTime();
+        update_option( $this->option_name, $now->format( 'c' ) );
     }
 }
