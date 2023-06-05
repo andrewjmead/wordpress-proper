@@ -6,5 +6,7 @@ parameters:
         - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
     paths:
         - source
+    scanDirectories:
+        - /private/var/folders/y6/brzwnktx2kzcjg2yg_7z04yr0000gn/T/wordpress-tests-lib/includes
 includes:
     - vendor/szepeviktor/phpstan-wordpress/extension.neon
