@@ -7,7 +7,7 @@ use DateTime;
 use Exception;
 use Throwable;
 
-class Periodically
+class Periodic
 {
     private $option_name;
     private $interval;
@@ -79,7 +79,7 @@ class Periodically
      */
     public static function check(string $option_name, $interval): bool
     {
-        $periodically = new Periodically($option_name, $interval);
+        $periodically = new Periodic($option_name, $interval);
         $should_run   = $periodically->should_run();
         $periodically->complete();
 
