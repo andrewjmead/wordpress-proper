@@ -6,7 +6,17 @@ A set of classes you may find useful for WordPress development.
 
 Zero dependencies.
 
-## Gatekeeper
+* [Periodic](#periodic)
+  * [::check($option_name, $date_interval): bool](#periodic)
+* [Number](#number)
+  * [::abbreviate($number): string](#abbreviate)
+* [Timezone](#timezone)
+  * [::utc_offset(): string](#utc_offset)
+  * [::utc_timezone(): DateTimeZone](#utc_offset)
+  * [::site_offset(): string](#site_offset)
+  * [::site_timezone(): DateTimeZone](#site_timezone)
+
+## Periodic
 
 Gatekeeper lets you run some code at a specific interval. It's perfect for situations where you have something you want to do, but you only want to do it every so often, such as once every 10 minutes or once every 12 hours.
 
