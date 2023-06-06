@@ -156,7 +156,7 @@ Get a `DateTimeZone` instance that represents UTC. This will always return the s
 
 use Proper\Timezone;
 
-Timezone::utc_timezone();
+Timezone::utc_timezone(); // Will always return new DateTimeZone('UTC');
 ```
 
 ### utc_offset
