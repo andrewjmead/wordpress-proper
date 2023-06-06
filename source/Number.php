@@ -9,7 +9,7 @@ class Number
      *
      * @return string
      */
-    public static function abbreviate($number): string
+    public static function abbreviate($number, $round = false): string
     {
         $number        = (int) $number;
         $abbreviations = [
@@ -24,7 +24,7 @@ class Number
             $upper_range = $abbreviation_value * 1000;
 
             if ($number < $upper_range) {
-                $decimals = $number < 1000 ? 0 : 1;
+                $decimals = $number < 1000 || $round ? 0 : 1;
                 $result   = $number / $abbreviation_value;
                 $result   = number_format_i18n($result, $decimals) . $abbreviation;
 

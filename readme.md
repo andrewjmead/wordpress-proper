@@ -10,7 +10,7 @@ A dependency-free set of classes you may find useful for WordPress development.
 * [Periodic](#periodic)
   * [::check($option_name, $date_interval): bool](#periodic)
 * [Number](#number)
-  * [::abbreviate($number): string](#abbreviate)
+  * [::abbreviate($number, bool $round = false): string](#abbreviate)
 * [Timezone](#timezone)
   * [::site_timezone(): DateTimeZone](#site_timezone)
   * [::site_offset(): string](#site_offset)
@@ -72,7 +72,7 @@ Calls to `check` will always return a boolean value. The value will be `true` if
 
 ### Abbreviate
 
-**Number::abbreviate(int|float $number): string**
+**Number::abbreviate(int|float $number, bool $round = false): string**
 
 The `abbreviate` methods abbreviates large numbers such as `742898` into shorter strings such as `743K`.
 
@@ -84,6 +84,9 @@ use Proper\Number;
 Number::abbreviate(1260000); // 1.3M
 
 Number::abbreviate(133800); // 133.8K
+
+// Round off decimals 
+Number::abbreviate(133800, true); // 134K
 ```
 
 It provides abbreviations for:

@@ -33,6 +33,22 @@ class NumberTest extends \WP_UnitTestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function test_rounding_option_down()
+    {
+        $actual   = Number::abbreviate(133300, true);
+        $expected = '133K';
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function test_rounding_option_up()
+    {
+        $actual   = Number::abbreviate(133800, true);
+        $expected = '134K';
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function test_billions()
     {
         $actual   = Number::abbreviate(999000000000);
