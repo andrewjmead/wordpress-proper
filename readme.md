@@ -15,7 +15,7 @@ A dependency-free set of classes you may find useful for WordPress development.
   * [::site_timezone(): DateTimeZone](#site_timezone)
   * [::site_offset(): string](#site_offset)
   * [::site_decimal_offset(): float](#site_decimal_offset)
-  * [::utc_timezone(): DateTimeZone](#utc_offset)
+  * [::utc_timezone(): DateTimeZone](#utc_timezone)
   * [::utc_offset(): string](#utc_offset)
   * [::utc_decimal_offset(): float](#utc_decimal_offset)
 
