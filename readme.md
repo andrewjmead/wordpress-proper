@@ -2,61 +2,89 @@
 
 # WordPress Proper
 
-A set of classes you may find useful for WordPress development.
+A dependency-free set of classes you may find useful for WordPress development.
 
-Zero dependencies.
+## Docs
 
-## Gatekeeper
+* [Getting Started](#getting-started)
+* [Periodic](#periodic)
+  * [::check($option_name, $date_interval): bool](#periodic)
+* [Number](#number)
+  * [::abbreviate($number): string](#abbreviate)
+* [Timezone](#timezone)
+  * [::site_timezone(): DateTimeZone](#site_timezone)
+  * [::site_offset(): string](#site_offset)
+  * [::site_decimal_offset(): float](#site_decimal_offset)
+  * [::utc_timezone(): DateTimeZone](#utc_timezone)
+  * [::utc_offset(): string](#utc_offset)
+  * [::utc_decimal_offset(): float](#utc_decimal_offset)
 
-Gatekeeper lets you run some code at a specific interval. It's perfect for situations where you have something you want to do, but you only want to do it every so often, such as once every 10 minutes or once every 12 hours.
+## Getting Started
 
-Gatekeeper is backed by WordPress options. The option value stores the time a given task was last completed. No option value is saved until a task is first marked as complete. You can call `should_run` to see if it's time to run a task, and you can call `complete` to mark a task as complete. Completed tasks won't rerun until the defined interval has passed.
+WordPress Proper can be installed via composer:
 
-Feel free to change the interval as needed. You might realize you need a more or less frequent interval. Simply change the interval argument and the gatekeeper will compare the new interval with the time it was last completed to see if the task should run.
+```
+composer require andrewmead/wordpress-proper
+```
 
-The constructor accepts 2 arguments:
+From there, you can pull in whatever module you happen to need:
 
-1. *Task name (string)* - Name for the WordPress option that will store when the task was last completed
-2. *Interval (string or `DateInterval`)* - A `DateInterval` or a valid [string duration](https://www.php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters) that `DateInterval` would accept
+```php
+use Proper\Number;
 
+Number::abbreviate(654201); // 654.2K
+```
+
+## Periodic
+
+**Periodic::check(string $option_name, string|DateInterval $interval): bool**
+
+`Periodic` gives you a way to periodically do something. It's powered by WordPress options and PHP's `DateInterval` class.
+
+It's perfect when you need to do something, but only every once in a while. In the example below, `Periodic` is used to run some code once every 30 minutes.
 
 ```php
 <?php
 
-use Proper\Gatekeeper;
+use Proper\Periodic;
 
-// Create a new gatekeeper that will run every 30 minutes
-$gatekeeper = new Gatekeeper('option_name', 'PT30M');
-
-// Check if it's time for the task to run
-if ($gatekeeper->should_run()) {
-    // Run some code you want to run on an interval
-    
-    // Mark task as complete, so it won't run until the specified interval of time has passed
-    $gatekeeper->complete();
+if (Periodic::check('verify_geo_database_file', 'PT30M')) {
+    // Run some code every 30 minutes
 }
 ```
 
-You can also define the interval using `DateInterval`:
+The first argument is name of the option you want to use to back a periodic task. This option will store the last time the periodic task was run.
+
+The second argument is where you define the period you want to wait. This can be represented as a `DateInterval` or a valid [string duration](https://www.php.net/manual/en/dateinterval.construct.php#refsect1-dateinterval.construct-parameters) that the `DateInterval` constructor would accept.
 
 ```php
-// Define the interval with a string duration
-$gatekeeper = new Gatekeeper('option_name', 'PT30M');
+// Define the period using a string
+$should_verify = Periodic::check('verify_geo_database_file', 'PT3S');
 
-// Define the interval using a DateInterval
-$period = new DateInterval('PT30M')
-$gatekeeper = new Gatekeeper('option_name', $period);
+// Define the period using a DateInterval
+$interval = new DateInterval('PT3S');
+$should_verify = Periodic::check('verify_geo_database_file', $interval);
 ```
 
-**Why not use WordPress cron?**
-
-WordPress ships with built-in support for cron tasks, but it's a cumbersome API that requires the manual scheduling and unscheduling of tasks. Gatekeeper is designed to be a lightweight version that you can easily add, remove, and modify as needed. There's no need to add separate code for scheduling an unscheduling tasks. 
+Calls to `check` will always return a boolean value. The value will be `true` if it's time to run the task. The value will be `false` if the period of time hasn't passed since the task was last completed. 
 
 ## Number
 
 ### Abbreviate
 
+**Number::abbreviate(int|float $number): string**
+
 The `abbreviate` methods abbreviates large numbers such as `742898` into shorter strings such as `743K`.
+
+```php
+<?php
+
+use Proper\Number;
+
+Number::abbreviate(1260000); // 1.3M
+
+Number::abbreviate(133800); // 133.8K
+```
 
 It provides abbreviations for:
 
@@ -71,12 +99,97 @@ Numbers at or above one quadrillion are not abbreviated. That means `Number::abb
 
 Behind the scenes, `abbreviate` uses `number_format_i18n` from WordPress to internationalize abbreviations. This ensures that `Number::abbreviate(1500)` returns the string `1.5K` for `en_US` and `1,5K` for `de_DE`.
 
+## Timezone
+
+A small set of functions that make it a bit easier to work with a WordPress site's timezone.
+
+* [::site_timezone(): DateTimeZone](#site_timezone)
+* [::site_offset(): string](#site_offset)
+* [::site_decimal_offset(): float](#site_decimal_offset)
+* [::utc_timezone(): DateTimeZone](#utc_timezone)
+* [::utc_offset(): string](#utc_offset)
+* [::utc_decimal_offset(): float](#utc_decimal_offset)
+
+### site_timezone
+
+**::site_timezone(): DateTimeZone**
+
+Get the WordPress site's timezone represent as a PHP `DateTimeZone`.
+
 ```php
 <?php
 
-use Proper\Number;
+use Proper\Timezone;
 
-Number::abbreviate(1260000); // 1.3M
+Timezone::site_timezone();
+```
 
-Number::abbreviate(133800); // 133.8K
+### site_offset
+
+**::site_offset(): string**
+
+Get the offset for the WordPress site's timezone. This is represented as a string. Examples include `"-04:00"`, `"+08:45"`, and `"-11:30"`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::site_offset();
+```
+
+### site_decimal_offset
+
+**::site_decimal_offset(): float**
+
+Get the decimal offset for the WordPress site's timezone. This is represented as a float. Examples include `-4`, `8.75`, and `-11.5`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::site_decimal_offset();
+```
+
+### utc_timezone
+
+**::utc_timezone(): DateTimeZone**
+
+Get a `DateTimeZone` instance that represents UTC. This will always return the same value, but serves as a handy counterpart to `site_timezone` 
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::utc_timezone(); // Will always return new DateTimeZone('UTC');
+```
+
+### utc_offset
+
+**::utc_offset(): string**
+
+Get the offset for UTC. This will always return `"+00:00"`. This will always return the same value, but serves as a handy counterpart to `site_offset`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::utc_offset(); // Will always return "+00:00"
+```
+
+### utc_decimal_offset
+
+**::utc_decimal_offset(): float**
+
+Get the decimal offset for UTC. This will always return `0`. This will always return the same value, but serves as a handy counterpart to `site_decimal_offset`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::utc_decimal_offset(); // Will always return 0
 ```

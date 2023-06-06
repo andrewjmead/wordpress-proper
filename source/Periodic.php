@@ -39,7 +39,7 @@ class Periodic
             return true;
         }
 
-        $is_past_interval_time = $last_execution->add($this->interval) < new DateTime();
+        $is_past_interval_time = $last_execution->add($this->interval) < new DateTime('now', Timezone::utc_timezone());
 
         if ($is_past_interval_time) {
             return true;
@@ -57,7 +57,7 @@ class Periodic
         }
 
         try {
-            return new DateTime($option_value);
+            return new DateTime($option_value, Timezone::utc_timezone());
         } catch (Throwable $e) {
             return null;
         }
@@ -70,7 +70,7 @@ class Periodic
      */
     private function complete(): void
     {
-        $now = new DateTime();
+        $now = new DateTime('now', Timezone::utc_timezone());
         update_option($this->option_name, $now->format('c'));
     }
 
