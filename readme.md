@@ -124,7 +124,7 @@ Get the WordPress site's timezone represent as a PHP `DateTimeZone`.
 
 use Proper\Timezone;
 
-Timezone::site_timezone();
+Timezone::site_timezone(); // new DateTimeZone('America/New_York')
 ```
 
 ### site_offset
@@ -138,7 +138,7 @@ Get the offset for the WordPress site's timezone. This is represented as a strin
 
 use Proper\Timezone;
 
-Timezone::site_offset();
+Timezone::site_offset(); // "-04:00"
 ```
 
 ### site_decimal_offset
@@ -152,7 +152,7 @@ Get the decimal offset for the WordPress site's timezone. This is represented as
 
 use Proper\Timezone;
 
-Timezone::site_decimal_offset();
+Timezone::site_decimal_offset(); // -4
 ```
 
 ### utc_timezone
