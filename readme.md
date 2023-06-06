@@ -101,7 +101,14 @@ Behind the scenes, `abbreviate` uses `number_format_i18n` from WordPress to inte
 
 ## Timezone
 
-A small set of function that make it a bit easier to work with a WordPress site's timezone.
+A small set of functions that make it a bit easier to work with a WordPress site's timezone.
+
+* [::site_timezone(): DateTimeZone](#site_timezone)
+* [::site_offset(): string](#site_offset)
+* [::site_decimal_offset(): float](#site_decimal_offset)
+* [::utc_timezone(): DateTimeZone](#utc_timezone)
+* [::utc_offset(): string](#utc_offset)
+* [::utc_decimal_offset(): float](#utc_decimal_offset)
 
 ### site_timezone
 
