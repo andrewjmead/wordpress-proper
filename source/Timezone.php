@@ -16,6 +16,11 @@ class Timezone
         return '+00:00';
     }
 
+    public static function utc_decimal_offset(): float
+    {
+        return 0;
+    }
+
     public static function site_timezone(): DateTimeZone
     {
         $timezone_string = get_option('timezone_string');
@@ -57,5 +62,10 @@ class Timezone
         $result .= str_pad($minutes, 2, '0', STR_PAD_LEFT);
 
         return $result;
+    }
+
+    public static function site_decimal_offset(): float
+    {
+        return (float) get_option('gmt_offset');
     }
 }
