@@ -2,7 +2,6 @@ parameters:
     phpVersion: 70329
     level: 5
     bootstrapFiles:
-        - vendor/autoload.php
         - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
     paths:
         - source
