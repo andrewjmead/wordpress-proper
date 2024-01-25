@@ -81,7 +81,10 @@ class Periodic
     {
         $periodically = new Periodic($option_name, $interval);
         $should_run   = $periodically->should_run();
-        $periodically->complete();
+
+        if($should_run) {
+            $periodically->complete();
+        }
 
         return $should_run;
     }
