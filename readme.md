@@ -14,10 +14,12 @@ A dependency-free set of classes you may find useful for WordPress development.
 * [Timezone](#timezone)
   * [::site_timezone(): DateTimeZone](#site_timezone)
   * [::site_offset(): string](#site_offset)
-  * [::site_decimal_offset(): float](#site_decimal_offset)
+  * [::site_offset_in_hours(): float](#site_offset_in_hours)
+  * [::site_offset_in_seconds(): float](#site_offset_in_seconds)
   * [::utc_timezone(): DateTimeZone](#utc_timezone)
   * [::utc_offset(): string](#utc_offset)
-  * [::utc_decimal_offset(): float](#utc_decimal_offset)
+  * [::utc_offset_in_hours(): float](#utc_offset_in_hours)
+  * [::utc_offset_in_seconds(): float](#utc_offset_in_seconds)
 
 ## Getting Started
 
@@ -108,10 +110,12 @@ A small set of functions that make it a bit easier to work with a WordPress site
 
 * [::site_timezone(): DateTimeZone](#site_timezone)
 * [::site_offset(): string](#site_offset)
-* [::site_decimal_offset(): float](#site_decimal_offset)
+* [::site_offset_in_hours(): float](#site_offset_in_hours)
+* [::site_offset_in_seconds(): float](#site_offset_in_seconds)
 * [::utc_timezone(): DateTimeZone](#utc_timezone)
 * [::utc_offset(): string](#utc_offset)
-* [::utc_decimal_offset(): float](#utc_decimal_offset)
+* [::utc_offset_in_hours(): float](#utc_offset_in_hours)
+* [::utc_offset_in_seconds(): float](#utc_offset_in_seconds)
 
 ### site_timezone
 
@@ -141,9 +145,9 @@ use Proper\Timezone;
 Timezone::site_offset(); // "-04:00"
 ```
 
-### site_decimal_offset
+### site_offset_in_hours
 
-**::site_decimal_offset(): float**
+**::site_offset_in_hours(): float**
 
 Get the decimal offset for the WordPress site's timezone. This is represented as a float. Examples include `-4`, `8.75`, and `-11.5`.
 
@@ -152,7 +156,21 @@ Get the decimal offset for the WordPress site's timezone. This is represented as
 
 use Proper\Timezone;
 
-Timezone::site_decimal_offset(); // -4
+Timezone::site_offset_in_hours(); // -4
+```
+
+### site_offset_in_seconds
+
+**::site_offset_in_seconds(): int**
+
+Get the offset for the WordPress site's timezone in seconds. This is represented as an int. Examples include `-14400`, `31500`, and `-41400`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::site_offset_in_seconds(); // -14400
 ```
 
 ### utc_timezone
@@ -183,16 +201,30 @@ use Proper\Timezone;
 Timezone::utc_offset(); // Will always return "+00:00"
 ```
 
-### utc_decimal_offset
+### utc_offset_in_hours
 
-**::utc_decimal_offset(): float**
+**::utc_offset_in_hours(): float**
 
-Get the decimal offset for UTC. This will always return `0`. This will always return the same value, but serves as a handy counterpart to `site_decimal_offset`.
+Get the decimal offset for UTC. This will always return `0`. This will always return the same value, but serves as a handy counterpart to `site_offset_in_hours`.
 
 ```php
 <?php
 
 use Proper\Timezone;
 
-Timezone::utc_decimal_offset(); // Will always return 0
+Timezone::utc_offset_in_hours(); // Will always return 0
+```
+
+### utc_offset_in_seconds
+
+**::utc_offset_in_seconds(): int**
+
+Get the decimal offset for UTC. This will always return `0`. This will always return the same value, but serves as a handy counterpart to `site_offset_in_seconds`.
+
+```php
+<?php
+
+use Proper\Timezone;
+
+Timezone::utc_offset_in_seconds(); // Will always return 0
 ```

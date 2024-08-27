@@ -16,7 +16,12 @@ class Timezone
         return '+00:00';
     }
 
-    public static function utc_decimal_offset(): float
+    public static function utc_offset_in_hours(): float
+    {
+        return 0;
+    }
+
+    public static function utc_offset_in_seconds(): int
     {
         return 0;
     }
@@ -37,15 +42,15 @@ class Timezone
     public static function site_offset(): string
     {
         // Start with the offset such as -4, 0, or 5.75
-        $offset_number = (float) get_option('gmt_offset');
+        $offset_in_hours = (float) get_option('gmt_offset');
 
         // Build a string to represent the offset such as -04:00, +00:00, or +5:45
         $result = '';
 
         // Start with either - or +
-        $result .= $offset_number < 0 ? '-' : '+';
+        $result .= $offset_in_hours < 0 ? '-' : '+';
 
-        $whole_part  = abs($offset_number);
+        $whole_part  = abs($offset_in_hours);
         $hour_part   = floor($whole_part);
         $minute_part = $whole_part - $hour_part;
 
@@ -64,8 +69,15 @@ class Timezone
         return $result;
     }
 
-    public static function site_decimal_offset(): float
+    public static function site_offset_in_hours(): float
     {
         return (float) get_option('gmt_offset');
+    }
+
+    public static function site_offset_in_seconds(): int
+    {
+        $offset_in_hours = (float) get_option('gmt_offset');
+
+        return intval($offset_in_hours * 60 * 60);
     }
 }
